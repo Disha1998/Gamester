@@ -1,7 +1,5 @@
 require("@nomiclabs/hardhat-waffle");
-require('dotenv').config()
-
-
+require("dotenv").config();
 
 const fs = require("fs");
 const privateKey = process.env.PRIVATE_KEY;
@@ -17,24 +15,6 @@ module.exports = {
       accounts: [privateKey],
       gas: 2100000,
       gasPrice: 8000000000,
-    },
-    // ropsten:{
-    //   url:`https://eth-ropsten.alchemyapi.io/v2/${projectId}`,
-    //   accounts:[privateKey],
-    //   gas: 2100000,
-    //   gasPrice: 8000000000
-    // },
-    ropsten: {
-      url: `https://ropsten.infura.io/v3/${projectId}`,
-      accounts: [privateKey],
-      gas: 2100000,
-      gasPrice: 8000000000,
-    },
-    bsc: {
-      url: "https://data-seed-prebsc-1-s1.binance.org:8545",
-      chainId: 97,
-      gasPrice: 20000000000,
-      accounts: [privateKey],
     },
   },
 };
