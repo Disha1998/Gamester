@@ -1,0 +1,63 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+.sticky-thc {
+  position: sticky;
+  top: 0;
+  border-bottom: solid 1px #dddddd;
+  background-color: #ffffff !important;
+}
+
+.sticky-wrapper {
+  position: relative;
+  height: 3rem; /* We need to change this value */
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  border-bottom: solid 1px #dddddd;
+  background-color: #ffffff !important;
+}
+
+/* 29-Nov-2021 */
+.btn-main.btn-lg {
+  cursor: pointer;
+}
+
+.nft__item_action {
+  color: var(--secondary-color);
+}
+
+div#connect {
+  cursor: pointer;
+}
+
+.MuiInputLabel-outlined.MuiInputLabel-shrink {
+  transform: translate(14px, -10px) scale(0.8) !important; 
+  background: white !important;
+  color: #8364E2 !important;
+  font-weight: 900 !important;
+}
+.bg-gredient{
+  background:#eb5774;
+}
+button#simple-tab-0, button#simple-tab-1, button#simple-tab-2{
+  text-transform: capitalize;
+}

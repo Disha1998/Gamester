@@ -1,0 +1,9 @@
+/* eslint no-use-before-define: 2 */  // --> ON 
+{
+  "extends": "next",
+  "rules": {  
+    "@next/next/no-img-element": "off",
+    "react/no-unescaped-entities": 0,
+    "react/jsx-no-duplicate-props": [1, { "ignoreCase": false }]
+    }
+}
