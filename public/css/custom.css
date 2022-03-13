@@ -75,9 +75,10 @@ button.MuiButtonBase-root.MuiFab-root.ml-3.font-weight-bold.MuiFab-primary {
   font-weight: normal;
 }
 .banner-text {
-  font-family: "VT323", monospace;
   font-weight: normal;
   color: #fff !important;
+  font-size: 40px;
+  margin-top: 30px;
 }
 
 span.MuiTabs-indicator.css-11yukd5-MuiTabs-indicator {

@@ -79,7 +79,8 @@ function Explore() {
             <div className="row">
               <div className="col-md-12 text-center">
                 <h1 className="banner-text">
-                  Rent and Earn passive Income from your Game NFT Assets!
+                  A zero collateral rental platform to lend and Borrow Game NFT Assets!
+
                 </h1>
                 <p
                   className="text-white text-center"
