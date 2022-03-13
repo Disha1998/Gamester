@@ -362,7 +362,7 @@ function Create() {
                     defaultValue={""}
                   />
                   <div className="spacer-10" />
-                  <h5>Category</h5>
+                  {/* <h5>Category</h5>
                   <div className="form-group">
                     <select
                       className="form-control"
@@ -384,9 +384,9 @@ function Create() {
                       <option value="Birthday Gift">Birthday Gift</option>
                       <option value="Annivarsary Gift">Annivarsary Gift</option>
                     </select>
-                  </div>
+                  </div> */}
                   <div className="spacer-10" />
-                  <h5>Gift Type</h5>
+                  {/* <h5>Gift Type</h5>
                   <div className="form-group">
                     <select
                       className="form-control"
@@ -413,9 +413,9 @@ function Create() {
                       <option value="Event Ticket">Event Ticket</option>
                       <option value="Virtualand">Virtualand</option>
                     </select>
-                  </div>
+                  </div> */}
 
-                  <div className="spacer-10" />
+          
                   <h5>Chain</h5>
                   <div className="form-group">
                     <select

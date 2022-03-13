@@ -185,148 +185,22 @@ export const Web3ContextProvider = (props) => {
       alert("You have to install MetaMask!");
     }
   }
-  async function loadNFTs(filterobj) {
+  async function loadNFTs() {
     setLoadingState(false);
     let tempNftlist = [];
-    const nftData = collection(db, "rent-NFT");
-    const userSnapshot = await getDocs(nftData);
-    if (
-      filterobj.category !== "" &&
-      filterobj.nftType === "" &&
-      filterobj.chain === ""
-    ) {
-      const q = query(
-        collection(db, "rent-NFT"),
-        where("category", "==", filterobj.category),
-        where("rented", "==", false),
-        where("renter", "==", ""),
-        where("purchased", "==", false),
-        where("buyer", "==", "")
-      );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        tempNftlist.push(doc.data());
-      });
-    } else if (
-      filterobj.category === "" &&
-      filterobj.nftType !== "" &&
-      filterobj.chain === ""
-    ) {
-      const q = query(
-        collection(db, "rent-NFT"),
-        where("nftType", "==", filterobj.nftType),
-        where("rented", "==", false),
-        where("renter", "==", ""),
-        where("purchased", "==", false),
-        where("buyer", "==", "")
-      );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        tempNftlist.push(doc.data());
-      });
-    } else if (
-      filterobj.category === "" &&
-      filterobj.nftType === "" &&
-      filterobj.chain !== ""
-    ) {
-      const q = query(
-        collection(db, "rent-NFT"),
-        where("chain", "==", filterobj.chain),
-        where("rented", "==", false),
-        where("renter", "==", ""),
-        where("purchased", "==", false),
-        where("buyer", "==", "")
-      );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        tempNftlist.push(doc.data());
-      });
-    } else if (
-      filterobj.category !== "" &&
-      filterobj.nftType !== "" &&
-      filterobj.chain !== ""
-    ) {
-      const q = query(
-        collection(db, "rent-NFT"),
-        where("chain", "==", filterobj.chain),
-        where("nftType", "==", filterobj.nftType),
-        where("category", "==", filterobj.category),
-        where("rented", "==", false),
-        where("renter", "==", ""),
-        where("purchased", "==", false),
-        where("buyer", "==", "")
-      );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        tempNftlist.push(doc.data());
-      });
-    } else if (
-      filterobj.category !== "" &&
-      filterobj.nftType !== "" &&
-      filterobj.chain === ""
-    ) {
-      const q = query(
-        collection(db, "rent-NFT"),
-        where("nftType", "==", filterobj.nftType),
-        where("category", "==", filterobj.category),
-        where("rented", "==", false),
-        where("renter", "==", ""),
-        where("purchased", "==", false),
-        where("buyer", "==", "")
-      );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        tempNftlist.push(doc.data());
-      });
-    } else if (
-      filterobj.category !== "" &&
-      filterobj.nftType === "" &&
-      filterobj.chain !== ""
-    ) {
-      const q = query(
-        collection(db, "rent-NFT"),
-        where("chain", "==", filterobj.chain),
-        where("category", "==", filterobj.category),
-        where("rented", "==", false),
-        where("renter", "==", ""),
-        where("purchased", "==", false),
-        where("buyer", "==", "")
-      );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        tempNftlist.push(doc.data());
-      });
-    } else if (
-      filterobj.category === "" &&
-      filterobj.nftType !== "" &&
-      filterobj.chain !== ""
-    ) {
-      const q = query(
-        collection(db, "rent-NFT"),
-        where("chain", "==", filterobj.chain),
-        where("nftType", "==", filterobj.nftType),
-        where("rented", "==", false),
-        where("renter", "==", ""),
-        where("purchased", "==", false),
-        where("buyer", "==", "")
-      );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        tempNftlist.push(doc.data());
-      });
-    } else {
-      const q = query(
-        collection(db, "rent-NFT"),
-        where("rented", "==", false),
-        where("renter", "==", ""),
-        where("purchased", "==", false),
-        where("buyer", "==", "")
-      );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        tempNftlist.push(doc.data());
-      });
-    }
+    // const nftData = collection(db, "rent-NFT");
+    // const userSnapshot = await getDocs(nftData);
+    const q = query(
+      collection(db, "rent-NFT"),
+      where("rented", "==", false),
+      where("renter", "==", ""),
+      where("purchased", "==", false),
+      where("buyer", "==", "")
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      tempNftlist.push(doc.data());
+    });
 
     setNfts(tempNftlist);
     setLoadingState(true);
@@ -628,11 +502,7 @@ export const Web3ContextProvider = (props) => {
           });
         });
         await transaction.wait();
-        loadNFTs({
-          category: "",
-          nftType: "",
-          chain: "",
-        });
+        loadNFTs();
         loadMyNfts(networkId);
         setLoader(false);
         router.push("/my-items");
@@ -696,11 +566,7 @@ export const Web3ContextProvider = (props) => {
         });
 
         await transaction.wait();
-        loadNFTs({
-          category: "",
-          nftType: "",
-          chain: "",
-        });
+        loadNFTs();
         loadMyNfts(networkId);
         setRentLoading(false);
         router.push("/my-items");
@@ -757,11 +623,7 @@ export const Web3ContextProvider = (props) => {
         });
 
         await transaction.wait();
-        loadNFTs({
-          category: "",
-          nftType: "",
-          chain: "",
-        });
+        loadNFTs();
         let tokencontract = new ethers.Contract(nftaddress, NFT.abi, signer);
 
         await tokencontract.approve(await contract.wrappedToken(), nft.tokenId);

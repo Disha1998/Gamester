@@ -54,7 +54,7 @@ function Explore() {
   }, [nfts]);
 
   useEffect(() => {
-    loadNFTs(selectedValues);
+    loadNFTs();
   }, [selectedValues]);
 
   const handleChange = (event) => {
@@ -85,7 +85,7 @@ function Explore() {
                   className="text-white text-center"
                   style={{ fontWeight: "bold" }}
                 >
-                  Deployment state : Polygon Mumbai Testnet & BSC Testnet
+                  Deployment state : Polygon Mumbai Testnet
                 </p>
               </div>
               <div className="clearfix" />
@@ -100,7 +100,7 @@ function Explore() {
           {/* <div className="col-lg-2 col-sm-12 items_filter" style={{ marginTop: '20px' }}>
             <h5 style={{ textAlign: 'right' }}>Search By </h5>
           </div> */}
-          <div className="col-lg-4 col-sm-12 items_filter">
+          {/* <div className="col-lg-4 col-sm-12 items_filter">
             <div className="form-group d-flex">
               <label
                 style={{ fontSize: "14px", margin: "auto" }}
@@ -158,8 +158,14 @@ function Explore() {
                 <option value="Event Ticket">Event Ticket</option>
               </select>
             </div>
-          </div>
-          <div className="col-lg-3 col-sm-12 items_filter">
+          </div> */}
+          {/* <div className="col-lg-3 col-sm-12 items_filter">
+            <label
+              style={{ fontSize: "14px", margin: "auto" }}
+              htmlFor="exampleFormControlSelect1"
+            >
+              Search By:
+            </label>
             <div className="form-group ">
               <select
                 className="form-control "
@@ -178,7 +184,7 @@ function Explore() {
                 <option value="Binance">Binance Smart Chain</option>
               </select>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <section aria-label="section">
