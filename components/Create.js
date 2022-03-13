@@ -90,10 +90,10 @@ function Create() {
   async function onChange(e) {
     const file = e.target.files[0];
     try {
-      // const added = await client.add(file, {
-      //   progress: (prog) => console.log(`received: ${prog}`),
-      // });
-      // const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      const added = await client.add(file, {
+        progress: (prog) => console.log(`received: ${prog}`),
+      });
+      const iurl = `https://ipfs.infura.io/ipfs/${added.path}`;
       const metadata = {
         contentType: "image/jpeg",
       };
