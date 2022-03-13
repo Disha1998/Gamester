@@ -14,7 +14,7 @@ function Footer() {
                 <div className="de-flex-col">
                   <a href="#">
                     <h2 className="footer-logo">
-                      <i className="fa fa-gift"></i> Gamester
+                      <img src="/img/gamesterlogo.png" alt="logo" />
                     </h2>
                   </a>
                 </div>

@@ -42,7 +42,7 @@ function Header() {
                     style={{ cursor: "pointer" }}
                   >
                     <h1 className="logo">
-                      <i className="fa fa-gift"></i> Gamester
+                      <img src="/img/gamesterlogo.png" alt="logo" />
                     </h1>
                   </div>
                   {}
