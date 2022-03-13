@@ -37,6 +37,7 @@ import {
   query,
 } from "firebase/firestore";
 import { Form } from "react-bootstrap";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
@@ -89,11 +90,28 @@ function Create() {
   async function onChange(e) {
     const file = e.target.files[0];
     try {
-      const added = await client.add(file, {
-        progress: (prog) => console.log(`received: ${prog}`),
-      });
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-      setFileUrl(url);
+      // const added = await client.add(file, {
+      //   progress: (prog) => console.log(`received: ${prog}`),
+      // });
+      // const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      const metadata = {
+        contentType: "image/jpeg",
+      };
+      const imageRef = ref(storage, "/images/" + file.name);
+      uploadBytesResumable(imageRef, file, metadata)
+        .then((snapshot) => {
+          // Let's get a download URL for the file.
+          getDownloadURL(snapshot.ref).then((url) => {
+            console.log("url=====>", url);
+            setFileUrl(url);
+            // ...
+          });
+        })
+        .catch((error) => {
+          console.error("Upload failed", error);
+          // ...
+        });
+      // setFileUrl(mountainsRef);
     } catch (error) {
       toast.error("Error uploading file!!");
       console.log("Error uploading file: ", error);
@@ -101,7 +119,6 @@ function Create() {
   }
 
   async function createItem() {
-    console.log(chain, "chain");
     if (!name || !description || !price || !fileUrl) {
       alert("Please upload file and fillup all the form details");
       return;
@@ -361,115 +378,114 @@ function Create() {
                     placeholder="e.g. 'This is very limited item'"
                     defaultValue={""}
                   />
-                  <div className="spacer-10" />
+
                   {/* <h5>Category</h5>
-                  <div className="form-group">
-                    <select
-                      className="form-control"
-                      id="exampleFormControlSelect1"
-                      onChange={(e) =>
-                        updateFormInput({
-                          ...formInput,
-                          category: e.target.value,
-                        })
-                      }
-                    >
-                      <option selected value="">
-                        Category
-                      </option>
-                      <option value="Christmas Gift">Christmas Gift</option>
-                      <option value="New Year Gift">New Year Gift</option>
-                      <option value="Bitcoin Day">Bitcoin Day</option>
-                      <option value="Valentines Gift">Valentines Gift</option>
-                      <option value="Birthday Gift">Birthday Gift</option>
-                      <option value="Annivarsary Gift">Annivarsary Gift</option>
-                    </select>
-                  </div> */}
+                      <div className="form-group">
+                        <select
+                          className="form-control"
+                          id="exampleFormControlSelect1"
+                          onChange={(e) =>
+                            updateFormInput({
+                              ...formInput,
+                              category: e.target.value,
+                            })
+                          }
+                        >
+                          <option selected value="">
+                            Category
+                          </option>
+                          <option value="Christmas Gift">Christmas Gift</option>
+                          <option value="New Year Gift">New Year Gift</option>
+                          <option value="Bitcoin Day">Bitcoin Day</option>
+                          <option value="Valentines Gift">Valentines Gift</option>
+                          <option value="Birthday Gift">Birthday Gift</option>
+                          <option value="Annivarsary Gift">Annivarsary Gift</option>
+                        </select>
+                      </div> */}
                   <div className="spacer-10" />
                   {/* <h5>Gift Type</h5>
-                  <div className="form-group">
-                    <select
-                      className="form-control"
-                      id="exampleFormControlSelect1"
-                      onChange={(e) =>
-                        updateFormInput({
-                          ...formInput,
-                          nftType: e.target.value,
-                        })
-                      }
-                    >
-                      <option selected value="">
-                        Gift Type
-                      </option>
-                      <option value="Poetry">Poetry</option>
-                      <option value="Cryptocurrency">Cryptocurrency</option>
-                      <option value="Music">Music</option>
-                      <option value="Art">Art</option>
-                      <option value="Gamming Assets">Gamming Assets</option>
-                      <option value="Metaverse">Metaverse</option>
-                      <option value="Membership Subscription">
-                        Membership Subscription
-                      </option>
-                      <option value="Event Ticket">Event Ticket</option>
-                      <option value="Virtualand">Virtualand</option>
-                    </select>
-                  </div> */}
+                      <div className="form-group">
+                        <select
+                          className="form-control"
+                          id="exampleFormControlSelect1"
+                          onChange={(e) =>
+                            updateFormInput({
+                              ...formInput,
+                              nftType: e.target.value,
+                            })
+                          }
+                        >
+                          <option selected value="">
+                            Gift Type
+                          </option>
+                          <option value="Poetry">Poetry</option>
+                          <option value="Cryptocurrency">Cryptocurrency</option>
+                          <option value="Music">Music</option>
+                          <option value="Art">Art</option>
+                          <option value="Gamming Assets">Gamming Assets</option>
+                          <option value="Metaverse">Metaverse</option>
+                          <option value="Membership Subscription">
+                            Membership Subscription
+                          </option>
+                          <option value="Event Ticket">Event Ticket</option>
+                          <option value="Virtualand">Virtualand</option>
+                        </select>
+                      </div> */}
 
-          
-                  <h5>Chain</h5>
-                  <div className="form-group">
-                    <select
-                      className="form-control"
-                      id="exampleFormControlSelect1"
-                      onChange={(e) => {
-                        const networkId = window.ethereum.networkVersion;
-                        if (e.target.value == "Binance" && networkId !== "97") {
-                          alert(
-                            "Please connect to the BSC Testnet network in Metamask to continue!"
-                          );
-                        } else if (
-                          e.target.value == "Polygon" &&
-                          networkId !== "80001"
-                        ) {
-                          alert(
-                            "Please connect to the Polygon Mumbai Testnet network in Metamask to continue!"
-                          );
-                        }
-                        updateFormInput({
-                          ...formInput,
-                          chain: e.target.value,
-                        });
-                      }}
-                    >
-                      <option value="Polygon">Polygon Network</option>
-                      <option value="Binance">Binance Smart Chain</option>
-                    </select>
-                  </div>
+                  {/* <h5>Chain</h5>
+                      <div className="form-group">
+                        <select
+                          className="form-control"
+                          id="exampleFormControlSelect1"
+                          onChange={(e) => {
+                            const networkId = window.ethereum.networkVersion;
+                            if (e.target.value == "Binance" && networkId !== "97") {
+                              alert(
+                                "Please connect to the BSC Testnet network in Metamask to continue!"
+                              );
+                            } else if (
+                              e.target.value == "Polygon" &&
+                              networkId !== "80001"
+                            ) {
+                              alert(
+                                "Please connect to the Polygon Mumbai Testnet network in Metamask to continue!"
+                              );
+                            }
+                            updateFormInput({
+                              ...formInput,
+                              chain: e.target.value,
+                            });
+                          }}
+                        >
+                          <option value="Polygon">Polygon Network</option>
+                          <option value="Binance">Binance Smart Chain</option>
+                        </select>
+                      </div> */}
 
-                  <div className="spacer-10" />
-                  <h5>Token</h5>
-                  <div className="form-group">
-                    <select
-                      className="form-control"
-                      id="exampleFormControlSelect1"
-                      onChange={(e) => {
-                        updateFormInput({
-                          ...formInput,
-                          token: e.target.value,
-                        });
-                      }}
-                    >
-                      {formInput.chain == "Binance" ? (
-                        <option value="BNB">BNB</option>
-                      ) : (
-                        <>
-                          {" "}
-                          <option value="MATIC">MATIC</option>{" "}
-                          <option value="ETH">ETH</option>{" "}
-                        </>
-                      )}
-                    </select>
-                  </div>
+                  {/* <div className="spacer-10" />
+                      <h5>Token</h5>
+                      <div className="form-group">
+                        <select
+                          className="form-control"
+                          id="exampleFormControlSelect1"
+                          onChange={(e) => {
+                            updateFormInput({
+                              ...formInput,
+                              token: e.target.value,
+                            });
+                          }}
+                        >
+                          {formInput.chain == "Binance" ? (
+                            <option value="BNB">BNB</option>
+                          ) : (
+                            <>
+                              {" "}
+                              <option value="MATIC">MATIC</option>{" "}
+                              <option value="ETH">ETH</option>{" "}
+                            </>
+                          )}
+                        </select>
+                      </div> */}
 
                   <h5>Price</h5>
                   <input
@@ -618,11 +634,11 @@ function Create() {
                 <div className="author_list_pp">
                   <a href="#">
                     {/* {
-                        userData.Initials ?   <Fab size="large" color="primary" className="ml-3 font-weight-bold">
-                        { userData.Initials}
-                      </Fab> :  <img className="lazy" src="/img/author/author-1.jpg" alt />
-                      }
-                      */}
+                            userData.Initials ?   <Fab size="large" color="primary" className="ml-3 font-weight-bold">
+                            { userData.Initials}
+                          </Fab> :  <img className="lazy" src="/img/author/author-1.jpg" alt />
+                          }
+                          */}
                     <img
                       className="lazy"
                       src="/img/author/author-1.jpg"
